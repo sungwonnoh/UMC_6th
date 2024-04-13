@@ -1,0 +1,40 @@
+.movie {
+  width: 100%;
+  height: auto;
+  margin: 10px;
+  max-width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  gap: 20px;
+}
+img {
+  width: 250px;
+  height: 400px;
+}
+.modal {
+  width: 250px;
+  height: 400px;
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-y: scroll;
+}
+.movie-item {
+  margin: 10px;
+  width: 250px;
+  height: 500px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.movie-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}

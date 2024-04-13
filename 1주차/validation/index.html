@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>validation</title>
+  </head>
+  <body>
+    <form class="validation">
+      <h2>회원가입</h2>
+      <div id="line"></div>
+      <div class="name">
+        <div>이름</div>
+        <input type="text" id="name" name="name" required />
+        <div class="error name" style="display: none">
+          필수 입력 항목입니다!
+        </div>
+        <div class="conform name" style="display: none">멋진 이름이네요!</div>
+      </div>
+      <div class="email">
+        <div>이메일</div>
+        <input type="email" id="email" name="email" required />
+        <div class="error email" style="display: none">
+          올바른 이메일 형식이 아닙니다!
+        </div>
+        <div class="conform email" style="display: none">
+          올바른 이메일 형식입니다!
+        </div>
+      </div>
+      <div class="age">
+        <div>나이</div>
+        <input type="" id="age" name="age" required />
+        <div class="error age" style="display: none">나이를 입력해주세요!</div>
+        <div class="conform age" style="display: none">
+          올바른 나이 형식입니다!
+        </div>
+      </div>
+      <div class="password">
+        <div>비밀번호</div>
+        <input type="password" id="pw" name="pw" required />
+        <div class="error password" style="display: none">
+          비밀번호는 최소 4자리 이상이어야 합니다.
+        </div>
+        <div class="conform password" style="display: none">
+          올바른 비밀번호입니다!
+        </div>
+      </div>
+      <div class="checkpassword">
+        <div>비밀번호 확인</div>
+        <input type="password" id="checkpw" name="checkpw" required />
+        <div class="error checkpw" style="display: none">
+          비밀번호가 일치하지 않습니다.
+        </div>
+        <div class="conform checkpw" style="display: none">
+          비밀번호가 일치합니다.
+        </div>
+      </div>
+
+      <button id="enter" type="submit">가입하기</button>
+    </form>
+    <div class="modal-wrapper" style="display: none">
+      <div class="modal">
+        <h3>가입 성공!</h3>
+        <div>umc 챌린저 가입을 축하합니다!</div>
+        <button id="close">닫기</button>
+      </div>
+    </div>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </body>
+</html>

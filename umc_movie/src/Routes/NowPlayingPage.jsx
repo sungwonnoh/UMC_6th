@@ -10,7 +10,6 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   width: 100vw;
-  border: 2px solid red;
 `;
 export default function NowPlaying() {
   const [movies, setMovies] = useState([]);

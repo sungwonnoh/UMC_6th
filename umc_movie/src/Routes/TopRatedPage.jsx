@@ -3,7 +3,13 @@ import { getTop } from "../api";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
-
+import styled from "styled-components";
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100vw;
+`;
 export default function TopRated() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +31,7 @@ export default function TopRated() {
         <Loading loading={isLoading} />
       ) : (
         <div>
-          <div className="movies-container">
+          <Container>
             {movies.map((movie) => (
               <Card
                 key={movie.id}
@@ -37,7 +43,7 @@ export default function TopRated() {
                 onClick={() => goToDetailPage(movie.id)}
               />
             ))}
-          </div>
+          </Container>
         </div>
       )}
     </div>

@@ -19,10 +19,12 @@ const Poster = styled.img`
   display: flex;
   width: 270px;
   height: 400px;
+  margin-left: 50px;
 `;
 const Content = styled.div`
   padding: 60px;
-  margin: 60px;
+  margin: 20px;
+  margin-right: 60px;
 `;
 const Title = styled.h2`
   color: white;
@@ -40,6 +42,7 @@ const SubText = styled.div`
 `;
 const CloseButton = styled.button`
   position: absolute;
+  display: flex;
   text-align: right;
 `;
 export function Detail() {

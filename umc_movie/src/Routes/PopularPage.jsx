@@ -3,7 +3,13 @@ import { getPopular } from "../api";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
-
+import styled from "styled-components";
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100vw;
+`;
 export default function Popular() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +26,7 @@ export default function Popular() {
 
   useEffect(() => {
     getMovies();
-  }, []);
+  }, []); //배열이 비어있으니까 한번만 실행
   const goToDetailPage = (id) => {
     navigate(`/movies/${id}`);
   };
@@ -30,7 +36,7 @@ export default function Popular() {
         <Loading loading={isLoading} />
       ) : (
         <div>
-          <div>
+          <Container>
             {movies.map((movie) => (
               <Card
                 key={movie.id}
@@ -42,7 +48,7 @@ export default function Popular() {
                 onClick={() => goToDetailPage(movie.id)}
               />
             ))}
-          </div>
+          </Container>
         </div>
       )}
     </div>

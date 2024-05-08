@@ -49,9 +49,10 @@ export function Navbar() {
     <Wrapper>
       <span onClick={() => onClick("home")}>UMC Movie</span>
       <NavContainer>
-        <Navitem onClick={() => onClick(" ")}>
+        <Navitem onClick={() => onClick("signup")}>회원가입</Navitem>
+        {/*<Navitem onClick={() => onClick(" ")}>
           {isLoggedIn ? "로그아웃" : "로그인"}
-        </Navitem>
+  </Navitem>*/}
         <Navitem onClick={() => onClick("popular")}>Popular</Navitem>
         <Navitem onClick={() => onClick("now")}>Now Playing</Navitem>
         <Navitem onClick={() => onClick("top")}>Top Rated</Navitem>

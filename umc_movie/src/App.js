@@ -8,6 +8,8 @@ import TopRated from "./Routes/TopRatedPage";
 import Upcoming from "./Routes/Upcoming";
 import { Detail } from "./Routes/MovieDetail";
 import Notfound from "./Routes/NotFound";
+import { Signup } from "./Routes/signup";
+import { Login } from "./Routes/Login";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/now" element={<NowPlaying />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/top" element={<TopRated />} />

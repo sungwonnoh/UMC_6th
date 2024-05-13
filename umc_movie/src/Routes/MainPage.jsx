@@ -14,9 +14,11 @@ const Banner = styled.div`
   height: 50vh;
   color: white;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  padding: 20px;
 `;
 
 const Findmovie = styled.div`
@@ -35,41 +37,49 @@ const Search = styled.div`
 `;
 
 const Input = styled.input`
-  width: 200px;
+  width: 300px;
   height: 30px;
-  padding: 5px;
-  margin-top: 10px;
+  padding: 10px;
+  margin-top: 15px;
   border: 1px solid black;
   border-radius: 3px;
 `;
 
 const Btn = styled.button`
   background-color: yellow;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 100%;
   border: none;
+  margin-top: 10px;
   margin-left: 20px;
+  cursor: pointer;
 `;
 
 const SearchList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  justify-content: center;
   margin: 20px;
   overflow-y: scroll;
 `;
 const List = styled.div`
-  width: 250px;
-  height: 200px;
+  width: 300px;
+  height: 400px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
 const Poster = styled.img`
-  width: 200px;
-  height: 180px;
+  width: 100%;
+  height: 70%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+`;
+const Name = styled.div`
+  margin-top: 20px;
+  text-align: center;
 `;
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -107,8 +117,10 @@ export default function Home() {
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               />
             )}
-            <div>Title: {movie.title}</div>
-            <div>Rating: {movie.vote_average}</div>
+            <Name>
+              <div>{movie.title}</div>
+              <div>⭐{movie.vote_average}</div>
+            </Name>
           </List>
         ))}
       </SearchList>

@@ -18,7 +18,17 @@ const Input = styled.input`
   padding: 10px;
   border: 2px solid black;
   border-radius: 15px;
-  margin: 20px;
+  margin: 10px;
+`;
+const Button = styled.button`
+  background-color: #007bff;
+  color: white;
+  width: 520px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: large;
+  cursor: pointer;
 `;
 
 export function Login() {
@@ -28,7 +38,7 @@ export function Login() {
       <LoginInput>
         <Input placeholder="아이디"></Input>
         <Input placeholder="비밀번호"></Input>
-        <button>로그인</button>
+        <Button>로그인</Button>
       </LoginInput>
     </Wrapper>
   );

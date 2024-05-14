@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSearch } from "../api";
 import { useNavigate } from "react-router-dom";
+import useDebounce from "../components/Debounce";
 
 const Wrapper = styled.div`
   display: flex;
@@ -96,6 +97,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const debounced = useDebounce(searchTerm, 200);
+
   const getMovies = async () => {
     setIsLoading(true); //검색 시작
     const result = await getSearch(searchTerm);
@@ -132,7 +135,7 @@ export default function Home() {
         {isLoading ? (
           <LoadingMessage>로딩중...</LoadingMessage>
         ) : (
-          <SearchList>
+          <SearchList target={debounced}>
             {movies.map((movie) => (
               <List key={movie.id} onClick={() => goToDetailPage(movie.id)}>
                 {movie.poster_path && (

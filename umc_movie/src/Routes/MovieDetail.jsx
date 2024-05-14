@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getDetail } from "../api";
+import { getCredit, getDetail } from "../api";
 import { useEffect, useState } from "react";
 
 const Wrapper = styled.div`
@@ -45,8 +45,18 @@ const CloseButton = styled.button`
   display: flex;
   text-align: right;
 `;
+const CreditWrapper = styled.div`
+  margin-top: 20px;
+`;
+const CreditItem = styled.div`
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
 export function Detail() {
   const [detail, setDetail] = useState({});
+  const [credit, setCredit] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -54,8 +64,17 @@ export function Detail() {
     const result = await getDetail(id);
     setDetail(result);
   };
+
+  const getCredits = async () => {
+    const result = await getCredit();
+    if (result && result.credits) {
+      setCredit(result.credits);
+    }
+  };
+
   useEffect(() => {
     getDetails();
+    getCredits();
   }, [id]);
 
   const closeDetail = () => {
@@ -86,8 +105,19 @@ export function Detail() {
             ) : (
               <Text>TMDB에서 제공하는 API에 상세 줄거리 정보가 없습니다.</Text>
             )}
-            <CloseButton onClick={closeDetail}>닫기</CloseButton>
+
+            <CreditWrapper>
+              <SubText>출연진</SubText>
+              {credit.map((actor) => (
+                <CreditItem key={actor.id}>
+                  {" "}
+                  <img src={actor.profile_path} alt={actor.name} />
+                  <div>{actor.name}</div>
+                </CreditItem>
+              ))}
+            </CreditWrapper>
           </Content>
+          <CloseButton onClick={closeDetail}>닫기</CloseButton>
         </>
       )}
     </Wrapper>

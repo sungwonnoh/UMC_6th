@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSearch } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -81,20 +82,38 @@ const Name = styled.div`
   margin-top: 20px;
   text-align: center;
 `;
+const LoadingMessage = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
 export default function Home() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
   const getMovies = async () => {
+    setIsLoading(true); //검색 시작
     const result = await getSearch(searchTerm);
     const moviesData = result.results; // results에서 데이터 추출
     setMovies(moviesData);
+    setIsLoading(false); //검색 종료
   };
 
   useEffect(() => {
-    getMovies();
+    // searchTerm이 변경될 때마다 getMovies 호출
+    if (searchTerm !== "") {
+      getMovies();
+    }
   }, [searchTerm]);
 
+  const goToDetailPage = (id) => {
+    navigate(`/movies/${id}`);
+  };
   return (
     <Wrapper>
       <Banner>환영합니다</Banner>
@@ -109,21 +128,27 @@ export default function Home() {
           <Btn onClick={getMovies}>🔍</Btn>
         </Search>
       </Findmovie>
-      <SearchList>
-        {movies.map((movie) => (
-          <List key={movie.id}>
-            {movie.poster_path && (
-              <Poster
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              />
-            )}
-            <Name>
-              <div>{movie.title}</div>
-              <div>⭐{movie.vote_average}</div>
-            </Name>
-          </List>
-        ))}
-      </SearchList>
+      <div>
+        {isLoading ? (
+          <LoadingMessage>로딩중...</LoadingMessage>
+        ) : (
+          <SearchList>
+            {movies.map((movie) => (
+              <List key={movie.id} onClick={() => goToDetailPage(movie.id)}>
+                {movie.poster_path && (
+                  <Poster
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  />
+                )}
+                <Name>
+                  <div>{movie.title}</div>
+                  <div>⭐{movie.vote_average}</div>
+                </Name>
+              </List>
+            ))}
+          </SearchList>
+        )}
+      </div>
     </Wrapper>
   );
 }

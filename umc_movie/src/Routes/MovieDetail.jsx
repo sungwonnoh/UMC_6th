@@ -42,16 +42,33 @@ const SubText = styled.div`
 `;
 const CloseButton = styled.button`
   position: absolute;
-  display: flex;
-  text-align: right;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
 `;
 const CreditWrapper = styled.div`
   margin-top: 20px;
+  overflow-y: auto;
+  max-height: 300px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 const CreditItem = styled.div`
-  color: white;
-  font-size: 18px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 20px;
+`;
+const Creditimg = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
 `;
 
 export function Detail() {
@@ -66,9 +83,10 @@ export function Detail() {
   };
 
   const getCredits = async () => {
-    const result = await getCredit();
-    if (result && result.credits) {
-      setCredit(result.credits);
+    const result = await getCredit(id); // movie_id 전달
+    if (result && result.cast) {
+      // cast 확인
+      setCredit(result.cast); // setCredit에는 cast만 저장됩니다.
     }
   };
 
@@ -110,8 +128,16 @@ export function Detail() {
               <SubText>출연진</SubText>
               {credit.map((actor) => (
                 <CreditItem key={actor.id}>
-                  {" "}
-                  <img src={actor.profile_path} alt={actor.name} />
+                  {actor.profile_path ? ( // 배우의 프로필 사진이 있는 경우
+                    <Creditimg
+                      src={`https://image.tmdb.org/t/p/w1280/${actor.profile_path}`}
+                    />
+                  ) : (
+                    // 배우의 프로필 사진이 없는 경우
+                    <Creditimg
+                      src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz7ztleRwzXhFdiwBYqZ8cib9RvEsukVVUS3niN1YQ&s`}
+                    />
+                  )}
                   <div>{actor.name}</div>
                 </CreditItem>
               ))}

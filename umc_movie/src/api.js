@@ -69,10 +69,10 @@ export const getSearch = async (target) => {
   return temp;
 };
 
-export const getCredit = async () => {
+export const getCredit = async (movie_id) => {
   const temp = await axios
     .get(
-      `https://api.themoviedb.org/3/person/person_id/movie_credits?api_key=${API_KEY}&watch_region=KR&language=ko`
+      `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&watch_region=KR&language=ko`
     )
     .then((res) => {
       return res.data;

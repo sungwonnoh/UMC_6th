@@ -58,12 +58,14 @@ const MoveLogin = styled.div`
 export function Signup() {
   const [formData, setFormData] = useState({
     name: "",
+    id: "",
     email: "",
     age: "",
     password: "",
     confirmPassword: "",
   });
   const [nameError, setNameError] = useState("");
+  const [idError, setIdError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [ageError, setAgeError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -138,7 +140,12 @@ export function Signup() {
     } else {
       setNameError("");
     }
-
+    if (formData.id === "") {
+      setIdError("아이디를 입력하세요.");
+      isError = true;
+    } else {
+      setIdError("");
+    }
     if (formData.email === "") {
       setEmailError("이메일을 입력하세요.");
       isError = true;
@@ -216,6 +223,16 @@ export function Signup() {
             placeholder="이름을 입력해주세요"
           />
           {nameError && <Error>{nameError}</Error>}
+        </InputGroup>
+        <InputGroup>
+          <Input
+            type="text"
+            name="name"
+            value={formData.id}
+            onChange={handleChange}
+            placeholder="아이디를 입력해주세요"
+          />
+          {idError && <Error>{idError}</Error>}
         </InputGroup>
         <InputGroup>
           <Input

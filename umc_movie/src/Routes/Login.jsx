@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Wrapper = styled.div`
   width: 100vw;
@@ -39,15 +41,29 @@ const Button = styled.button`
 `;
 
 export function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data, errors);
-    alert("로그인 성공");
+
+  const confirmLogin = async (data) => {
+    try {
+      await axios.post("http://localhost:8080/auth/login", {
+        username: data.id, // 사용자 아이디
+        password: data.password, // 사용자 비밀번호
+      });
+
+      alert("로그인 성공");
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+      alert("로그인에 실패했습니다.");
+    }
   };
+  const onSubmit = handleSubmit(confirmLogin);
+
   return (
     <Wrapper>
       <h2>로그인 페이지</h2>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -80,6 +81,9 @@ export function Signup() {
       case "name":
         setNameError(value === "" ? "이름을 입력하세요." : "");
         break;
+      case "id": // 아이디 입력 필드 처리 추가
+        setIdError(value === "" ? "아이디를 입력하세요." : "");
+        break;
       case "email":
         setEmailError(
           value === ""
@@ -129,7 +133,7 @@ export function Signup() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let isError = false;
 
@@ -204,9 +208,38 @@ export function Signup() {
 
     // 오류가 없을 경우 폼 제출
     if (!isError) {
-      console.log("폼 데이터:", formData);
-      alert("회원가입에 성공했습니다!");
-      navigate("/login");
+      try {
+        //try에 대한 모든걸 실행 후 catch실행(오류상관없이)->if문 추천
+        console.log(formData);
+        const response = await axios
+          .post("http://localhost:8080/auth/signup", {
+            name: formData.name,
+            email: formData.email,
+            age: formData.age,
+            username: formData.id,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+          })
+          .then((res) => {
+            return res;
+          })
+          .catch((e) => console.log(e));
+        //localStorage.setItem("token", response.data.token); // 토큰을 로컬 스토리지에 저장
+        console.log(response);
+        // alert("회원가입에 성공했습니다!");
+        // navigate("/login");
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          alert(error.response.data.message); // 서버에서 전달된 에러 메시지 표시
+        } else {
+          alert("회원가입 중 오류가 발생했습니다."); // 기타 에러 메시지 표시
+        }
+        console.error(error);
+      }
     }
   };
 
@@ -227,7 +260,7 @@ export function Signup() {
         <InputGroup>
           <Input
             type="text"
-            name="name"
+            name="id"
             value={formData.id}
             onChange={handleChange}
             placeholder="아이디를 입력해주세요"
@@ -274,7 +307,7 @@ export function Signup() {
           />
           {confirmPasswordError && <Error>{confirmPasswordError}</Error>}
         </InputGroup>
-        <Button onClick={handleSubmit}>Sign Up</Button>
+        <Button type="submit">Sign Up</Button>
         <Question>
           <Already>이미 아이디가 있으신가요?</Already>
           <MoveLogin>로그인 페이지로 이동하기</MoveLogin>

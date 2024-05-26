@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -38,6 +38,11 @@ export function Navbar() {
       setIsLoggedIn(true);
     }
   };
+  const Logout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
   const onClick = (r) => {
     if (r === " ") {
       handleAuthClick(); // 로그인 또는 로그아웃 버튼 클릭 시 호출
@@ -49,10 +54,17 @@ export function Navbar() {
     <Wrapper>
       <span onClick={() => onClick("home")}>UMC Movie</span>
       <NavContainer>
-        <Navitem onClick={() => onClick("signup")}>회원가입</Navitem>
-        {/*<Navitem onClick={() => onClick(" ")}>
-          {isLoggedIn ? "로그아웃" : "로그인"}
-  </Navitem>*/}
+        {isLoggedIn ? (
+          <>
+            <Navitem onClick={Logout}>로그아웃</Navitem>
+          </>
+        ) : (
+          <>
+            <Navitem onClick={() => onClick("login")}>로그인</Navitem>
+            <Navitem onClick={() => onClick("signup")}>회원가입</Navitem>
+          </>
+        )}
+
         <Navitem onClick={() => onClick("popular")}>Popular</Navitem>
         <Navitem onClick={() => onClick("now")}>Now Playing</Navitem>
         <Navitem onClick={() => onClick("top")}>Top Rated</Navitem>

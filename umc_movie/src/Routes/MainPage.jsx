@@ -119,7 +119,7 @@ export default function Home() {
   };
   return (
     <Wrapper>
-      <Banner>환영합니다</Banner>
+      <Banner>{localStorage.getItem("username")}환영합니다</Banner>
       <Findmovie>
         <div>🎥Find Your Moives !</div>
         <Search>

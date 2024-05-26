@@ -18,7 +18,7 @@ const H2 = styled.h2`
   text-align: center;
 `;
 const InputGroup = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -44,8 +44,7 @@ const Button = styled.button`
 `;
 const Error = styled.span`
   color: red;
-  margin-left: 5px;
-  margin-top: 2px;
+  position: absolute;
 `;
 const Question = styled.div`
   display: flex;

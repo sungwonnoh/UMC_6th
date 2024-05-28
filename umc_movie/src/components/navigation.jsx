@@ -32,15 +32,12 @@ export function Navbar() {
   const handleAuthClick = () => {
     if (isLoggedIn) {
       // 로그인 상태이면 로그아웃 처리
+      localStorage.removeItem("token");
       setIsLoggedIn(false);
     } else {
       // 로그아웃 상태이면 로그인 처리
       setIsLoggedIn(true);
     }
-  };
-  const Logout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
   };
 
   const onClick = (r) => {
@@ -56,7 +53,7 @@ export function Navbar() {
       <NavContainer>
         {isLoggedIn ? (
           <>
-            <Navitem onClick={Logout}>로그아웃</Navitem>
+            <Navitem onClick={handleAuthClick}>로그아웃</Navitem>
           </>
         ) : (
           <>

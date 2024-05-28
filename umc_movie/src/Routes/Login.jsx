@@ -50,11 +50,12 @@ export function Login() {
 
   const confirmLogin = async (data) => {
     try {
-      await axios.post("http://localhost:8080/auth/login", {
-        username: data.id, // 사용자 아이디
-        password: data.password, // 사용자 비밀번호
+      const response = await axios.post("http://localhost:8080/auth/login", {
+        username: data.id,
+        password: data.password,
       });
-      const token = data.token; // 응답에서 토큰 추출
+      console.log(response.data);
+      const token = response.data.token; // 응답에서 토큰 추출
       localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
       alert("로그인 성공");
       navigate("/");

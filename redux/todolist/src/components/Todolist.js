@@ -14,7 +14,7 @@ export default function Todolist() {
     <li className={s.list} key={todolist[idx].id}>
       <input
         className={s.checkbox}
-        type="checko=box"
+        type="checkbox"
         onChange={() => dispatch(complete(todolist[idx].id))}
       />
       <div className={s.todolist}>
